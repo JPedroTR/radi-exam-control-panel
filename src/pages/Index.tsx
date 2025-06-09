@@ -88,18 +88,18 @@ const Index: React.FC = () => {
   );
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-gray-50">
       {/* Cabeçalho */}
-      <header className="bg-card border-b border-border shadow-sm">
+      <header className="bg-white border-b border-gray-200 shadow-sm">
         <div className="container mx-auto px-4 py-3 flex justify-between items-center">
           <div className="flex items-center">
-            <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
-              <span className="text-primary-foreground font-bold text-xl">R</span>
+            <div className="w-12 h-10 bg-blue-600 rounded flex items-center justify-center mr-3">
+              <span className="text-white font-bold text-sm">📡</span>
             </div>
-            <h1 className="ml-4 text-xl font-semibold text-foreground">Sistema de Gestão de Exames</h1>
+            <h1 className="text-xl font-semibold text-gray-800">Sistema de Gestão de Exames</h1>
           </div>
           <div className="flex items-center space-x-4">
-            <span className="text-sm text-muted-foreground">Olá, João Pedro</span>
+            <span className="text-sm text-gray-600">Olá, João Pedro</span>
             <Button variant="ghost" size="sm">
               Sair
             </Button>
@@ -108,33 +108,33 @@ const Index: React.FC = () => {
       </header>
 
       {/* Navegação principal */}
-      <nav className="bg-primary text-primary-foreground">
+      <nav className="bg-blue-600 text-white">
         <div className="container mx-auto px-4">
           <Tabs defaultValue="dashboard" className="w-full" onValueChange={setActiveTab}>
             <TabsList className="w-full justify-start bg-transparent h-12 border-none">
               <TabsTrigger 
                 value="dashboard" 
-                className="data-[state=active]:bg-primary/80 text-primary-foreground h-full px-4"
+                className="data-[state=active]:bg-blue-700 text-white h-full px-4"
               >
-                Dashboard
+                📊 Dashboard
               </TabsTrigger>
               <TabsTrigger 
                 value="exames" 
-                className="data-[state=active]:bg-primary/80 text-primary-foreground h-full px-4"
+                className="data-[state=active]:bg-blue-700 text-white h-full px-4"
               >
-                Exames
+                🏥 Exames
               </TabsTrigger>
               <TabsTrigger 
                 value="pacientes" 
-                className="data-[state=active]:bg-primary/80 text-primary-foreground h-full px-4"
+                className="data-[state=active]:bg-blue-700 text-white h-full px-4"
               >
-                Pacientes
+                👥 Pacientes
               </TabsTrigger>
               <TabsTrigger 
                 value="admin" 
-                className="data-[state=active]:bg-primary/80 text-primary-foreground h-full px-4"
+                className="data-[state=active]:bg-blue-700 text-white h-full px-4"
               >
-                Administração
+                ⚙️ Administração
               </TabsTrigger>
             </TabsList>
           </Tabs>
@@ -147,101 +147,104 @@ const Index: React.FC = () => {
           {/* Dashboard */}
           <TabsContent value="dashboard" className="space-y-6">
             <div className="flex justify-between items-center mb-6">
-              <h2 className="text-2xl font-bold text-foreground">Painel de Controle</h2>
+              <h2 className="text-2xl font-bold text-gray-800">Painel de Controle</h2>
               <div className="flex space-x-2">
-                <span className="text-sm text-muted-foreground">Domingo, 8 de Junho de 2025</span>
+                <span className="text-sm text-gray-500">Domingo, 8 de Junho de 2025</span>
               </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-              <Card>
+              <Card className="border-l-4 border-l-blue-500">
                 <CardHeader className="pb-2">
-                  <CardTitle className="text-lg">Total de Exames</CardTitle>
-                  <CardDescription>Realizados hoje</CardDescription>
+                  <CardTitle className="text-lg text-gray-700">Total de Exames</CardTitle>
+                  <CardDescription className="text-gray-500">Realizados hoje</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="flex items-center">
-                    <div className="text-3xl text-primary mr-4">📋</div>
+                    <div className="text-3xl text-blue-600 mr-4">📋</div>
                     <div>
-                      <p className="text-3xl font-bold">15</p>
-                      <p className="text-sm text-muted-foreground">de 390 este mês</p>
+                      <p className="text-3xl font-bold text-gray-800">15</p>
+                      <p className="text-sm text-gray-500">de 390 este mês</p>
                     </div>
                   </div>
                 </CardContent>
               </Card>
               
-              <Card>
+              <Card className="border-l-4 border-l-orange-500">
                 <CardHeader className="pb-2">
-                  <CardTitle className="text-lg">Exames Pendentes</CardTitle>
-                  <CardDescription>Aguardando realização</CardDescription>
+                  <CardTitle className="text-lg text-gray-700">Exames Pendentes</CardTitle>
+                  <CardDescription className="text-gray-500">Aguardando realização</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="flex items-center">
-                    <div className="text-3xl text-amber-500 mr-4">⏳</div>
+                    <div className="text-3xl text-orange-500 mr-4">⏳</div>
                     <div>
-                      <p className="text-3xl font-bold">3</p>
-                      <p className="text-sm text-muted-foreground">Prioridade: 1 urgente</p>
+                      <p className="text-3xl font-bold text-gray-800">3</p>
+                      <p className="text-sm text-gray-500">Prioridade: 1 urgente</p>
                     </div>
                   </div>
                 </CardContent>
               </Card>
               
-              <Card>
+              <Card className="border-l-4 border-l-green-500">
                 <CardHeader className="pb-2">
-                  <CardTitle className="text-lg">Média Diária</CardTitle>
-                  <CardDescription>Exames por dia</CardDescription>
+                  <CardTitle className="text-lg text-gray-700">Média Diária</CardTitle>
+                  <CardDescription className="text-gray-500">Exames por dia</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="flex items-center">
-                    <div className="text-3xl text-green-500 mr-4">📊</div>
+                    <div className="text-3xl text-green-600 mr-4">📊</div>
                     <div>
-                      <p className="text-3xl font-bold">26</p>
-                      <p className="text-sm text-muted-foreground">Aumento de 5% este mês</p>
+                      <p className="text-3xl font-bold text-gray-800">26</p>
+                      <p className="text-sm text-gray-500">Aumento de 5% este mês</p>
                     </div>
                   </div>
                 </CardContent>
               </Card>
             </div>
 
-            <Card>
+            <Card className="shadow-sm">
               <CardHeader>
                 <div className="flex justify-between items-center">
-                  <CardTitle>Exames Recentes</CardTitle>
-                  <Button>
+                  <CardTitle className="text-gray-800">Exames Recentes</CardTitle>
+                  <Button className="bg-blue-600 hover:bg-blue-700">
                     <Plus className="mr-2 h-4 w-4" />
                     Novo Exame
                   </Button>
                 </div>
               </CardHeader>
               <CardContent>
-                <div className="rounded-md border">
+                <div className="rounded-md border border-gray-200">
                   <Table>
                     <TableHeader>
-                      <TableRow className="bg-muted">
-                        <TableHead className="font-semibold">Nome do Paciente</TableHead>
-                        <TableHead className="font-semibold">Exames Realizados</TableHead>
-                        <TableHead className="font-semibold text-center">Incidências</TableHead>
-                        <TableHead className="font-semibold text-center">Número</TableHead>
-                        <TableHead className="font-semibold">Plano de Saúde</TableHead>
-                        <TableHead className="font-semibold">Técnico</TableHead>
-                        <TableHead className="font-semibold text-right">Ações</TableHead>
+                      <TableRow className="bg-gray-50">
+                        <TableHead className="font-semibold text-gray-700">Nome do Paciente</TableHead>
+                        <TableHead className="font-semibold text-gray-700">Exames Realizados</TableHead>
+                        <TableHead className="font-semibold text-center text-gray-700">Incidências</TableHead>
+                        <TableHead className="font-semibold text-center text-gray-700">Número</TableHead>
+                        <TableHead className="font-semibold text-gray-700">Plano de Saúde</TableHead>
+                        <TableHead className="font-semibold text-gray-700">Técnico</TableHead>
+                        <TableHead className="font-semibold text-right text-gray-700">Ações</TableHead>
                       </TableRow>
                     </TableHeader>
                     <TableBody>
                       {filteredExames.slice(0, 5).map((exame) => (
-                        <TableRow key={exame.id}>
-                          <TableCell className="font-medium">{exame.nome}</TableCell>
-                          <TableCell>{exame.exame}</TableCell>
-                          <TableCell className="text-center">{exame.incidencias}</TableCell>
-                          <TableCell className="text-center">{exame.numero}</TableCell>
+                        <TableRow key={exame.id} className="hover:bg-gray-50">
+                          <TableCell className="font-medium text-gray-800">{exame.nome}</TableCell>
+                          <TableCell className="text-gray-600">{exame.exame}</TableCell>
+                          <TableCell className="text-center text-gray-600">{exame.incidencias}</TableCell>
+                          <TableCell className="text-center text-gray-600">{exame.numero}</TableCell>
                           <TableCell>
-                            <Badge variant={exame.plano === 'PARTICULAR' ? 'outline' : 'default'}>
+                            <Badge 
+                              variant="outline" 
+                              className={exame.plano === 'PARTICULAR' ? 'bg-purple-100 text-purple-800 border-purple-300' : 'bg-blue-100 text-blue-800 border-blue-300'}
+                            >
                               {exame.plano}
                             </Badge>
                           </TableCell>
-                          <TableCell>{exame.tecnico}</TableCell>
+                          <TableCell className="text-gray-600">{exame.tecnico}</TableCell>
                           <TableCell className="text-right">
-                            <Button variant="ghost" size="sm">
+                            <Button variant="ghost" size="sm" className="text-blue-600 hover:text-blue-800">
                               <Eye className="h-4 w-4" />
                             </Button>
                           </TableCell>
@@ -251,7 +254,7 @@ const Index: React.FC = () => {
                   </Table>
                 </div>
                 <div className="mt-4 flex justify-end">
-                  <Button variant="link">
+                  <Button variant="link" className="text-blue-600 hover:text-blue-800">
                     Ver todos os exames
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
@@ -263,14 +266,14 @@ const Index: React.FC = () => {
           {/* Exames */}
           <TabsContent value="exames" className="space-y-6">
             <div className="flex justify-between items-center mb-6">
-              <h2 className="text-2xl font-bold text-foreground">Gestão de Exames</h2>
-              <Button>
+              <h2 className="text-2xl font-bold text-gray-800">Gestão de Exames</h2>
+              <Button className="bg-blue-600 hover:bg-blue-700">
                 <Plus className="mr-2 h-4 w-4" />
                 Novo Exame
               </Button>
             </div>
 
-            <Card>
+            <Card className="shadow-sm">
               <CardHeader>
                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                   <div className="relative w-full sm:w-96">
@@ -278,13 +281,13 @@ const Index: React.FC = () => {
                       placeholder="Buscar exames..."
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
-                      className="pl-10"
+                      className="pl-10 border-gray-300"
                     />
-                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                   </div>
                   <div className="flex gap-2 w-full sm:w-auto">
                     <Select value={selectedFilter} onValueChange={setSelectedFilter}>
-                      <SelectTrigger className="w-full sm:w-[180px]">
+                      <SelectTrigger className="w-full sm:w-[180px] border-gray-300">
                         <SelectValue placeholder="Filtrar por" />
                       </SelectTrigger>
                       <SelectContent>
@@ -294,7 +297,7 @@ const Index: React.FC = () => {
                         <SelectItem value="mes">Este mês</SelectItem>
                       </SelectContent>
                     </Select>
-                    <Button variant="outline">
+                    <Button variant="outline" className="border-gray-300">
                       <Filter className="mr-2 h-4 w-4" />
                       Filtros
                     </Button>
@@ -302,41 +305,44 @@ const Index: React.FC = () => {
                 </div>
               </CardHeader>
               <CardContent>
-                <div className="rounded-md border">
+                <div className="rounded-md border border-gray-200">
                   <Table>
                     <TableHeader>
-                      <TableRow className="bg-muted">
-                        <TableHead className="font-semibold">Nome do Paciente</TableHead>
-                        <TableHead className="font-semibold">Exames Realizados</TableHead>
-                        <TableHead className="font-semibold text-center">Incidências</TableHead>
-                        <TableHead className="font-semibold text-center">Número</TableHead>
-                        <TableHead className="font-semibold">Plano de Saúde</TableHead>
-                        <TableHead className="font-semibold">Técnico</TableHead>
-                        <TableHead className="font-semibold text-right">Ações</TableHead>
+                      <TableRow className="bg-gray-50">
+                        <TableHead className="font-semibold text-gray-700">Nome do Paciente</TableHead>
+                        <TableHead className="font-semibold text-gray-700">Exames Realizados</TableHead>
+                        <TableHead className="font-semibold text-center text-gray-700">Incidências</TableHead>
+                        <TableHead className="font-semibold text-center text-gray-700">Número</TableHead>
+                        <TableHead className="font-semibold text-gray-700">Plano de Saúde</TableHead>
+                        <TableHead className="font-semibold text-gray-700">Técnico</TableHead>
+                        <TableHead className="font-semibold text-right text-gray-700">Ações</TableHead>
                       </TableRow>
                     </TableHeader>
                     <TableBody>
                       {filteredExames.map((exame) => (
-                        <TableRow key={exame.id}>
-                          <TableCell className="font-medium">{exame.nome}</TableCell>
-                          <TableCell>{exame.exame}</TableCell>
-                          <TableCell className="text-center">{exame.incidencias}</TableCell>
-                          <TableCell className="text-center">{exame.numero}</TableCell>
+                        <TableRow key={exame.id} className="hover:bg-gray-50">
+                          <TableCell className="font-medium text-gray-800">{exame.nome}</TableCell>
+                          <TableCell className="text-gray-600">{exame.exame}</TableCell>
+                          <TableCell className="text-center text-gray-600">{exame.incidencias}</TableCell>
+                          <TableCell className="text-center text-gray-600">{exame.numero}</TableCell>
                           <TableCell>
-                            <Badge variant={exame.plano === 'PARTICULAR' ? 'outline' : 'default'}>
+                            <Badge 
+                              variant="outline" 
+                              className={exame.plano === 'PARTICULAR' ? 'bg-purple-100 text-purple-800 border-purple-300' : 'bg-blue-100 text-blue-800 border-blue-300'}
+                            >
                               {exame.plano}
                             </Badge>
                           </TableCell>
-                          <TableCell>{exame.tecnico}</TableCell>
+                          <TableCell className="text-gray-600">{exame.tecnico}</TableCell>
                           <TableCell className="text-right">
                             <div className="flex justify-end gap-2">
-                              <Button variant="ghost" size="sm">
+                              <Button variant="ghost" size="sm" className="text-blue-600 hover:text-blue-800">
                                 <Eye className="h-4 w-4" />
                               </Button>
-                              <Button variant="ghost" size="sm">
+                              <Button variant="ghost" size="sm" className="text-blue-600 hover:text-blue-800">
                                 <Edit className="h-4 w-4" />
                               </Button>
-                              <Button variant="ghost" size="sm" className="text-destructive">
+                              <Button variant="ghost" size="sm" className="text-red-500 hover:text-red-700">
                                 <Trash className="h-4 w-4" />
                               </Button>
                             </div>
@@ -372,50 +378,53 @@ const Index: React.FC = () => {
           {/* Pacientes */}
           <TabsContent value="pacientes" className="space-y-6">
             <div className="flex justify-between items-center mb-6">
-              <h2 className="text-2xl font-bold text-foreground">Gestão de Pacientes</h2>
-              <Button>
+              <h2 className="text-2xl font-bold text-gray-800">Gestão de Pacientes</h2>
+              <Button className="bg-blue-600 hover:bg-blue-700">
                 <UserPlus className="mr-2 h-4 w-4" />
                 Novo Paciente
               </Button>
             </div>
 
-            <Card>
+            <Card className="shadow-sm">
               <CardHeader>
                 <div className="relative w-full">
                   <Input
                     placeholder="Buscar pacientes por nome, CPF ou plano de saúde..."
-                    className="pl-10"
+                    className="pl-10 border-gray-300"
                   />
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                 </div>
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                   {examesData.slice(0, 6).map((paciente, index) => (
-                    <Card key={index} className="hover:shadow-md transition-shadow cursor-pointer">
+                    <Card key={index} className="hover:shadow-md transition-shadow cursor-pointer border border-gray-200">
                       <CardHeader className="pb-2">
-                        <CardTitle className="text-base">{paciente.nome}</CardTitle>
-                        <CardDescription>ID: {100000 + index}</CardDescription>
+                        <CardTitle className="text-base text-gray-800">{paciente.nome}</CardTitle>
+                        <CardDescription className="text-gray-500">ID: {100000 + index}</CardDescription>
                       </CardHeader>
                       <CardContent>
                         <div className="space-y-2 text-sm">
                           <div className="flex justify-between">
-                            <span className="text-muted-foreground">Último exame:</span>
-                            <span>{paciente.exame}</span>
+                            <span className="text-gray-500">Último exame:</span>
+                            <span className="text-gray-700">{paciente.exame}</span>
                           </div>
                           <div className="flex justify-between">
-                            <span className="text-muted-foreground">Plano:</span>
-                            <Badge variant="outline">
+                            <span className="text-gray-500">Plano:</span>
+                            <Badge 
+                              variant="outline" 
+                              className={paciente.plano === 'PARTICULAR' ? 'bg-purple-100 text-purple-800 border-purple-300' : 'bg-blue-100 text-blue-800 border-blue-300'}
+                            >
                               {paciente.plano}
                             </Badge>
                           </div>
                           <div className="flex justify-between">
-                            <span className="text-muted-foreground">Total de exames:</span>
-                            <span>{Math.floor(Math.random() * 10) + 1}</span>
+                            <span className="text-gray-500">Total de exames:</span>
+                            <span className="text-gray-700">{Math.floor(Math.random() * 10) + 1}</span>
                           </div>
                         </div>
                         <div className="mt-4 flex justify-end">
-                          <Button variant="ghost" size="sm">
+                          <Button variant="ghost" size="sm" className="text-blue-600 hover:text-blue-800">
                             Ver histórico
                             <ChevronRight className="ml-2 h-4 w-4" />
                           </Button>
@@ -450,13 +459,13 @@ const Index: React.FC = () => {
           {/* Admin */}
           <TabsContent value="admin" className="space-y-6">
             <div className="flex justify-between items-center mb-6">
-              <h2 className="text-2xl font-bold text-foreground">Painel Administrativo</h2>
+              <h2 className="text-2xl font-bold text-gray-800">Painel Administrativo</h2>
               <div className="flex gap-2">
-                <Button variant="outline">
+                <Button variant="outline" className="border-gray-300">
                   <Download className="mr-2 h-4 w-4" />
                   Exportar Relatórios
                 </Button>
-                <Button>
+                <Button className="bg-blue-600 hover:bg-blue-700">
                   <UserPlus className="mr-2 h-4 w-4" />
                   Novo Usuário
                 </Button>
@@ -464,58 +473,58 @@ const Index: React.FC = () => {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-              <Card>
+              <Card className="shadow-sm">
                 <CardHeader>
-                  <CardTitle>Estatísticas Mensais</CardTitle>
+                  <CardTitle className="text-gray-800">Estatísticas Mensais</CardTitle>
                 </CardHeader>
                 <CardContent className="h-80">
                   <div id="planoSaudeChart" className="w-full h-full"></div>
                 </CardContent>
               </Card>
               
-              <Card>
+              <Card className="shadow-sm">
                 <CardHeader>
-                  <CardTitle>Desempenho por Técnico</CardTitle>
+                  <CardTitle className="text-gray-800">Desempenho por Técnico</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <Table>
                     <TableHeader>
-                      <TableRow className="bg-muted">
-                        <TableHead className="font-semibold">Técnico</TableHead>
-                        <TableHead className="font-semibold text-center">Exames</TableHead>
-                        <TableHead className="font-semibold text-center">Média Diária</TableHead>
-                        <TableHead className="font-semibold text-right">Eficiência</TableHead>
+                      <TableRow className="bg-gray-50">
+                        <TableHead className="font-semibold text-gray-700">Técnico</TableHead>
+                        <TableHead className="font-semibold text-center text-gray-700">Exames</TableHead>
+                        <TableHead className="font-semibold text-center text-gray-700">Média Diária</TableHead>
+                        <TableHead className="font-semibold text-right text-gray-700">Eficiência</TableHead>
                       </TableRow>
                     </TableHeader>
                     <TableBody>
-                      <TableRow>
-                        <TableCell className="font-medium">JOÃO PEDRO</TableCell>
-                        <TableCell className="text-center">78</TableCell>
-                        <TableCell className="text-center">9.8</TableCell>
+                      <TableRow className="hover:bg-gray-50">
+                        <TableCell className="font-medium text-gray-800">JOÃO PEDRO</TableCell>
+                        <TableCell className="text-center text-gray-600">78</TableCell>
+                        <TableCell className="text-center text-gray-600">9.8</TableCell>
                         <TableCell className="text-right">
                           <Badge className="bg-green-100 text-green-800">98%</Badge>
                         </TableCell>
                       </TableRow>
-                      <TableRow>
-                        <TableCell className="font-medium">FER</TableCell>
-                        <TableCell className="text-center">65</TableCell>
-                        <TableCell className="text-center">8.1</TableCell>
+                      <TableRow className="hover:bg-gray-50">
+                        <TableCell className="font-medium text-gray-800">FER</TableCell>
+                        <TableCell className="text-center text-gray-600">65</TableCell>
+                        <TableCell className="text-center text-gray-600">8.1</TableCell>
                         <TableCell className="text-right">
                           <Badge className="bg-green-100 text-green-800">95%</Badge>
                         </TableCell>
                       </TableRow>
-                      <TableRow>
-                        <TableCell className="font-medium">BRUNA</TableCell>
-                        <TableCell className="text-center">52</TableCell>
-                        <TableCell className="text-center">6.5</TableCell>
+                      <TableRow className="hover:bg-gray-50">
+                        <TableCell className="font-medium text-gray-800">BRUNA</TableCell>
+                        <TableCell className="text-center text-gray-600">52</TableCell>
+                        <TableCell className="text-center text-gray-600">6.5</TableCell>
                         <TableCell className="text-right">
                           <Badge className="bg-amber-100 text-amber-800">87%</Badge>
                         </TableCell>
                       </TableRow>
-                      <TableRow>
-                        <TableCell className="font-medium">RO</TableCell>
-                        <TableCell className="text-center">45</TableCell>
-                        <TableCell className="text-center">5.6</TableCell>
+                      <TableRow className="hover:bg-gray-50">
+                        <TableCell className="font-medium text-gray-800">RO</TableCell>
+                        <TableCell className="text-center text-gray-600">45</TableCell>
+                        <TableCell className="text-center text-gray-600">5.6</TableCell>
                         <TableCell className="text-right">
                           <Badge className="bg-amber-100 text-amber-800">82%</Badge>
                         </TableCell>
@@ -526,95 +535,95 @@ const Index: React.FC = () => {
               </Card>
             </div>
 
-            <Card>
+            <Card className="shadow-sm">
               <CardHeader>
-                <CardTitle>Gerenciamento de Usuários</CardTitle>
+                <CardTitle className="text-gray-800">Gerenciamento de Usuários</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="rounded-md border">
+                <div className="rounded-md border border-gray-200">
                   <Table>
                     <TableHeader>
-                      <TableRow className="bg-muted">
-                        <TableHead className="font-semibold">Nome</TableHead>
-                        <TableHead className="font-semibold">Email</TableHead>
-                        <TableHead className="font-semibold">Função</TableHead>
-                        <TableHead className="font-semibold">Status</TableHead>
-                        <TableHead className="font-semibold">Último Acesso</TableHead>
-                        <TableHead className="font-semibold text-right">Ações</TableHead>
+                      <TableRow className="bg-gray-50">
+                        <TableHead className="font-semibold text-gray-700">Nome</TableHead>
+                        <TableHead className="font-semibold text-gray-700">Email</TableHead>
+                        <TableHead className="font-semibold text-gray-700">Função</TableHead>
+                        <TableHead className="font-semibold text-gray-700">Status</TableHead>
+                        <TableHead className="font-semibold text-gray-700">Último Acesso</TableHead>
+                        <TableHead className="font-semibold text-right text-gray-700">Ações</TableHead>
                       </TableRow>
                     </TableHeader>
                     <TableBody>
-                      <TableRow>
-                        <TableCell className="font-medium">João Pedro</TableCell>
-                        <TableCell>joao.pedro@clinica.com</TableCell>
-                        <TableCell>Administrador</TableCell>
+                      <TableRow className="hover:bg-gray-50">
+                        <TableCell className="font-medium text-gray-800">João Pedro</TableCell>
+                        <TableCell className="text-gray-600">joao.pedro@clinica.com</TableCell>
+                        <TableCell className="text-gray-600">Administrador</TableCell>
                         <TableCell>
                           <Badge className="bg-green-100 text-green-800">Ativo</Badge>
                         </TableCell>
-                        <TableCell>08/06/2025 14:11</TableCell>
+                        <TableCell className="text-gray-600">08/06/2025 14:11</TableCell>
                         <TableCell className="text-right">
                           <div className="flex justify-end gap-2">
-                            <Button variant="ghost" size="sm">
+                            <Button variant="ghost" size="sm" className="text-blue-600 hover:text-blue-800">
                               <Edit className="h-4 w-4" />
                             </Button>
-                            <Button variant="ghost" size="sm" className="text-destructive">
+                            <Button variant="ghost" size="sm" className="text-red-500 hover:text-red-700">
                               <Trash className="h-4 w-4" />
                             </Button>
                           </div>
                         </TableCell>
                       </TableRow>
-                      <TableRow>
-                        <TableCell className="font-medium">Fernanda Silva</TableCell>
-                        <TableCell>fernanda.silva@clinica.com</TableCell>
-                        <TableCell>Técnico</TableCell>
+                      <TableRow className="hover:bg-gray-50">
+                        <TableCell className="font-medium text-gray-800">Fernanda Silva</TableCell>
+                        <TableCell className="text-gray-600">fernanda.silva@clinica.com</TableCell>
+                        <TableCell className="text-gray-600">Técnico</TableCell>
                         <TableCell>
                           <Badge className="bg-green-100 text-green-800">Ativo</Badge>
                         </TableCell>
-                        <TableCell>08/06/2025 13:45</TableCell>
+                        <TableCell className="text-gray-600">08/06/2025 13:45</TableCell>
                         <TableCell className="text-right">
                           <div className="flex justify-end gap-2">
-                            <Button variant="ghost" size="sm">
+                            <Button variant="ghost" size="sm" className="text-blue-600 hover:text-blue-800">
                               <Edit className="h-4 w-4" />
                             </Button>
-                            <Button variant="ghost" size="sm" className="text-destructive">
+                            <Button variant="ghost" size="sm" className="text-red-500 hover:text-red-700">
                               <Trash className="h-4 w-4" />
                             </Button>
                           </div>
                         </TableCell>
                       </TableRow>
-                      <TableRow>
-                        <TableCell className="font-medium">Bruna Oliveira</TableCell>
-                        <TableCell>bruna.oliveira@clinica.com</TableCell>
-                        <TableCell>Técnico</TableCell>
+                      <TableRow className="hover:bg-gray-50">
+                        <TableCell className="font-medium text-gray-800">Bruna Oliveira</TableCell>
+                        <TableCell className="text-gray-600">bruna.oliveira@clinica.com</TableCell>
+                        <TableCell className="text-gray-600">Técnico</TableCell>
                         <TableCell>
                           <Badge className="bg-green-100 text-green-800">Ativo</Badge>
                         </TableCell>
-                        <TableCell>08/06/2025 10:22</TableCell>
+                        <TableCell className="text-gray-600">08/06/2025 10:22</TableCell>
                         <TableCell className="text-right">
                           <div className="flex justify-end gap-2">
-                            <Button variant="ghost" size="sm">
+                            <Button variant="ghost" size="sm" className="text-blue-600 hover:text-blue-800">
                               <Edit className="h-4 w-4" />
                             </Button>
-                            <Button variant="ghost" size="sm" className="text-destructive">
+                            <Button variant="ghost" size="sm" className="text-red-500 hover:text-red-700">
                               <Trash className="h-4 w-4" />
                             </Button>
                           </div>
                         </TableCell>
                       </TableRow>
-                      <TableRow>
-                        <TableCell className="font-medium">Roberto Almeida</TableCell>
-                        <TableCell>roberto.almeida@clinica.com</TableCell>
-                        <TableCell>Técnico</TableCell>
+                      <TableRow className="hover:bg-gray-50">
+                        <TableCell className="font-medium text-gray-800">Roberto Almeida</TableCell>
+                        <TableCell className="text-gray-600">roberto.almeida@clinica.com</TableCell>
+                        <TableCell className="text-gray-600">Técnico</TableCell>
                         <TableCell>
-                          <Badge variant="outline">Inativo</Badge>
+                          <Badge variant="outline" className="bg-gray-100 text-gray-600 border-gray-300">Inativo</Badge>
                         </TableCell>
-                        <TableCell>05/06/2025 16:30</TableCell>
+                        <TableCell className="text-gray-600">05/06/2025 16:30</TableCell>
                         <TableCell className="text-right">
                           <div className="flex justify-end gap-2">
-                            <Button variant="ghost" size="sm">
+                            <Button variant="ghost" size="sm" className="text-blue-600 hover:text-blue-800">
                               <Edit className="h-4 w-4" />
                             </Button>
-                            <Button variant="ghost" size="sm" className="text-green-600">
+                            <Button variant="ghost" size="sm" className="text-green-600 hover:text-green-800">
                               <UserPlus className="h-4 w-4" />
                             </Button>
                           </div>
@@ -630,20 +639,20 @@ const Index: React.FC = () => {
       </main>
 
       {/* Rodapé */}
-      <footer className="bg-muted border-t border-border mt-8">
+      <footer className="bg-gray-100 border-t border-gray-200 mt-8">
         <div className="container mx-auto px-4 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="mb-4 md:mb-0">
-              <p className="text-sm text-muted-foreground">© 2025 Sistema de Gestão de Exames Radiológicos. Todos os direitos reservados.</p>
+              <p className="text-sm text-gray-600">© 2025 Sistema de Gestão de Exames Radiológicos. Todos os direitos reservados.</p>
             </div>
             <div className="flex space-x-4">
-              <Button variant="ghost" size="sm">
+              <Button variant="ghost" size="sm" className="text-gray-600 hover:text-gray-800">
                 Suporte
               </Button>
-              <Button variant="ghost" size="sm">
+              <Button variant="ghost" size="sm" className="text-gray-600 hover:text-gray-800">
                 Manual
               </Button>
-              <Button variant="ghost" size="sm">
+              <Button variant="ghost" size="sm" className="text-gray-600 hover:text-gray-800">
                 Privacidade
               </Button>
             </div>
