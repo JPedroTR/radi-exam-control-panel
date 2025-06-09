@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -48,7 +49,6 @@ const Index: React.FC = () => {
         const option = {
           animation: true,
           animationDuration: 1000,
-          animationEasing: 'cubicOut',
           title: {
             text: 'Exames por Plano de Saúde',
             left: 'center'
