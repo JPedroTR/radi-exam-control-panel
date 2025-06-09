@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -10,6 +9,15 @@ import { Badge } from "@/components/ui/badge";
 import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
 import * as echarts from 'echarts';
 import { Search, Plus, Eye, Edit, Trash, Filter, Download, UserPlus, ChevronRight, ArrowRight } from 'lucide-react';
+import { motion } from 'framer-motion';
+
+// Import animation components
+import { FadeIn } from '@/components/animations/FadeIn';
+import { AnimatedCard } from '@/components/animations/AnimatedCard';
+import { ShimmerButton } from '@/components/animations/ShimmerButton';
+import { CounterAnimation } from '@/components/animations/CounterAnimation';
+import { StaggerContainer, StaggerItem } from '@/components/animations/StaggerContainer';
+import { GlowingBadge } from '@/components/animations/GlowingBadge';
 
 const Index: React.FC = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -38,7 +46,9 @@ const Index: React.FC = () => {
       if (chartDom) {
         const myChart = echarts.init(chartDom);
         const option = {
-          animation: false,
+          animation: true,
+          animationDuration: 1000,
+          animationEasing: 'cubicOut',
           title: {
             text: 'Exames por Plano de Saúde',
             left: 'center'
@@ -88,578 +98,677 @@ const Index: React.FC = () => {
   );
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <motion.div 
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+      className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50/30 to-gray-50"
+    >
       {/* Cabeçalho */}
-      <header className="bg-white border-b border-gray-200 shadow-sm">
+      <motion.header 
+        initial={{ y: -50, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+        className="bg-white/80 backdrop-blur-sm border-b border-gray-200 shadow-sm sticky top-0 z-50"
+      >
         <div className="container mx-auto px-4 py-3 flex justify-between items-center">
-          <div className="flex items-center">
-            <div className="w-12 h-10 bg-blue-600 rounded flex items-center justify-center mr-3">
-              <span className="text-white font-bold text-sm">📡</span>
+          <FadeIn direction="left" delay={0.2}>
+            <div className="flex items-center">
+              <div className="w-12 h-10 bg-gradient-to-r from-blue-600 to-blue-700 rounded flex items-center justify-center mr-3 shadow-lg">
+                <span className="text-white font-bold text-sm">📡</span>
+              </div>
+              <h1 className="text-xl font-semibold text-gray-800">Sistema de Gestão de Exames</h1>
             </div>
-            <h1 className="text-xl font-semibold text-gray-800">Sistema de Gestão de Exames</h1>
-          </div>
-          <div className="flex items-center space-x-4">
-            <span className="text-sm text-gray-600">Olá, João Pedro</span>
-            <Button variant="ghost" size="sm">
-              Sair
-            </Button>
-          </div>
+          </FadeIn>
+          <FadeIn direction="right" delay={0.4}>
+            <div className="flex items-center space-x-4">
+              <span className="text-sm text-gray-600">Olá, João Pedro</span>
+              <ShimmerButton variant="ghost" size="sm">
+                Sair
+              </ShimmerButton>
+            </div>
+          </FadeIn>
         </div>
-      </header>
+      </motion.header>
 
       {/* Navegação principal */}
-      <nav className="bg-blue-600 text-white">
+      <motion.nav 
+        initial={{ y: -20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.5, delay: 0.1 }}
+        className="bg-gradient-to-r from-blue-600 via-blue-700 to-blue-600 text-white shadow-lg"
+      >
         <div className="container mx-auto px-4">
           <Tabs defaultValue="dashboard" className="w-full" onValueChange={setActiveTab}>
             <TabsList className="w-full justify-start bg-transparent h-12 border-none">
-              <TabsTrigger 
-                value="dashboard" 
-                className="data-[state=active]:bg-blue-700 text-white h-full px-4"
-              >
-                📊 Dashboard
-              </TabsTrigger>
-              <TabsTrigger 
-                value="exames" 
-                className="data-[state=active]:bg-blue-700 text-white h-full px-4"
-              >
-                🏥 Exames
-              </TabsTrigger>
-              <TabsTrigger 
-                value="pacientes" 
-                className="data-[state=active]:bg-blue-700 text-white h-full px-4"
-              >
-                👥 Pacientes
-              </TabsTrigger>
-              <TabsTrigger 
-                value="admin" 
-                className="data-[state=active]:bg-blue-700 text-white h-full px-4"
-              >
-                ⚙️ Administração
-              </TabsTrigger>
+              <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                <TabsTrigger 
+                  value="dashboard" 
+                  className="data-[state=active]:bg-blue-800/50 text-white h-full px-4 transition-all duration-300"
+                >
+                  📊 Dashboard
+                </TabsTrigger>
+              </motion.div>
+              <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                <TabsTrigger 
+                  value="exames" 
+                  className="data-[state=active]:bg-blue-800/50 text-white h-full px-4 transition-all duration-300"
+                >
+                  🏥 Exames
+                </TabsTrigger>
+              </motion.div>
+              <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                <TabsTrigger 
+                  value="pacientes" 
+                  className="data-[state=active]:bg-blue-800/50 text-white h-full px-4 transition-all duration-300"
+                >
+                  👥 Pacientes
+                </TabsTrigger>
+              </motion.div>
+              <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                <TabsTrigger 
+                  value="admin" 
+                  className="data-[state=active]:bg-blue-800/50 text-white h-full px-4 transition-all duration-300"
+                >
+                  ⚙️ Administração
+                </TabsTrigger>
+              </motion.div>
             </TabsList>
           </Tabs>
         </div>
-      </nav>
+      </motion.nav>
 
       {/* Conteúdo principal */}
       <main className="container mx-auto px-4 py-6">
         <Tabs defaultValue="dashboard" value={activeTab}>
           {/* Dashboard */}
           <TabsContent value="dashboard" className="space-y-6">
-            <div className="flex justify-between items-center mb-6">
-              <h2 className="text-2xl font-bold text-gray-800">Painel de Controle</h2>
-              <div className="flex space-x-2">
-                <span className="text-sm text-gray-500">Domingo, 8 de Junho de 2025</span>
+            <FadeIn delay={0.1}>
+              <div className="flex justify-between items-center mb-6">
+                <h2 className="text-2xl font-bold text-gray-800">Painel de Controle</h2>
+                <div className="flex space-x-2">
+                  <span className="text-sm text-gray-500">Domingo, 8 de Junho de 2025</span>
+                </div>
               </div>
-            </div>
+            </FadeIn>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-              <Card className="border-l-4 border-l-blue-500">
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-lg text-gray-700">Total de Exames</CardTitle>
-                  <CardDescription className="text-gray-500">Realizados hoje</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex items-center">
-                    <div className="text-3xl text-blue-600 mr-4">📋</div>
-                    <div>
-                      <p className="text-3xl font-bold text-gray-800">15</p>
-                      <p className="text-sm text-gray-500">de 390 este mês</p>
+            <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6" staggerDelay={0.1}>
+              <StaggerItem>
+                <AnimatedCard className="border-l-4 border-l-blue-500" glowEffect>
+                  <CardHeader className="pb-2">
+                    <CardTitle className="text-lg text-gray-700">Total de Exames</CardTitle>
+                    <CardDescription className="text-gray-500">Realizados hoje</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="flex items-center">
+                      <motion.div 
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{ duration: 0.5, delay: 0.5, type: "spring" }}
+                        className="text-3xl text-blue-600 mr-4"
+                      >
+                        📋
+                      </motion.div>
+                      <div>
+                        <p className="text-3xl font-bold text-gray-800">
+                          <CounterAnimation from={0} to={15} duration={1.5} />
+                        </p>
+                        <p className="text-sm text-gray-500">de 390 este mês</p>
+                      </div>
                     </div>
-                  </div>
-                </CardContent>
-              </Card>
+                  </CardContent>
+                </AnimatedCard>
+              </StaggerItem>
               
-              <Card className="border-l-4 border-l-orange-500">
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-lg text-gray-700">Exames Pendentes</CardTitle>
-                  <CardDescription className="text-gray-500">Aguardando realização</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex items-center">
-                    <div className="text-3xl text-orange-500 mr-4">⏳</div>
-                    <div>
-                      <p className="text-3xl font-bold text-gray-800">3</p>
-                      <p className="text-sm text-gray-500">Prioridade: 1 urgente</p>
+              <StaggerItem>
+                <AnimatedCard className="border-l-4 border-l-orange-500" glowEffect>
+                  <CardHeader className="pb-2">
+                    <CardTitle className="text-lg text-gray-700">Exames Pendentes</CardTitle>
+                    <CardDescription className="text-gray-500">Aguardando realização</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="flex items-center">
+                      <motion.div 
+                        animate={{ rotate: [0, 10, -10, 0] }}
+                        transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
+                        className="text-3xl text-orange-500 mr-4"
+                      >
+                        ⏳
+                      </motion.div>
+                      <div>
+                        <p className="text-3xl font-bold text-gray-800">
+                          <CounterAnimation from={0} to={3} duration={1.5} />
+                        </p>
+                        <p className="text-sm text-gray-500">Prioridade: 1 urgente</p>
+                      </div>
                     </div>
-                  </div>
-                </CardContent>
-              </Card>
+                  </CardContent>
+                </AnimatedCard>
+              </StaggerItem>
               
-              <Card className="border-l-4 border-l-green-500">
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-lg text-gray-700">Média Diária</CardTitle>
-                  <CardDescription className="text-gray-500">Exames por dia</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex items-center">
-                    <div className="text-3xl text-green-600 mr-4">📊</div>
-                    <div>
-                      <p className="text-3xl font-bold text-gray-800">26</p>
-                      <p className="text-sm text-gray-500">Aumento de 5% este mês</p>
+              <StaggerItem>
+                <AnimatedCard className="border-l-4 border-l-green-500" glowEffect>
+                  <CardHeader className="pb-2">
+                    <CardTitle className="text-lg text-gray-700">Média Diária</CardTitle>
+                    <CardDescription className="text-gray-500">Exames por dia</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="flex items-center">
+                      <motion.div 
+                        animate={{ scale: [1, 1.1, 1] }}
+                        transition={{ duration: 2, repeat: Infinity, repeatDelay: 4 }}
+                        className="text-3xl text-green-600 mr-4"
+                      >
+                        📊
+                      </motion.div>
+                      <div>
+                        <p className="text-3xl font-bold text-gray-800">
+                          <CounterAnimation from={0} to={26} duration={1.5} />
+                        </p>
+                        <p className="text-sm text-gray-500">Aumento de 5% este mês</p>
+                      </div>
                     </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
+                  </CardContent>
+                </AnimatedCard>
+              </StaggerItem>
+            </StaggerContainer>
 
-            <Card className="shadow-sm">
-              <CardHeader>
-                <div className="flex justify-between items-center">
-                  <CardTitle className="text-gray-800">Exames Recentes</CardTitle>
-                  <Button className="bg-blue-600 hover:bg-blue-700">
-                    <Plus className="mr-2 h-4 w-4" />
-                    Novo Exame
-                  </Button>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <div className="rounded-md border border-gray-200">
-                  <Table>
-                    <TableHeader>
-                      <TableRow className="bg-gray-50">
-                        <TableHead className="font-semibold text-gray-700">Nome do Paciente</TableHead>
-                        <TableHead className="font-semibold text-gray-700">Exames Realizados</TableHead>
-                        <TableHead className="font-semibold text-center text-gray-700">Incidências</TableHead>
-                        <TableHead className="font-semibold text-center text-gray-700">Número</TableHead>
-                        <TableHead className="font-semibold text-gray-700">Plano de Saúde</TableHead>
-                        <TableHead className="font-semibold text-gray-700">Técnico</TableHead>
-                        <TableHead className="font-semibold text-right text-gray-700">Ações</TableHead>
-                      </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                      {filteredExames.slice(0, 5).map((exame) => (
-                        <TableRow key={exame.id} className="hover:bg-gray-50">
-                          <TableCell className="font-medium text-gray-800">{exame.nome}</TableCell>
-                          <TableCell className="text-gray-600">{exame.exame}</TableCell>
-                          <TableCell className="text-center text-gray-600">{exame.incidencias}</TableCell>
-                          <TableCell className="text-center text-gray-600">{exame.numero}</TableCell>
-                          <TableCell>
-                            <Badge 
-                              variant="outline" 
-                              className={exame.plano === 'PARTICULAR' ? 'bg-purple-100 text-purple-800 border-purple-300' : 'bg-blue-100 text-blue-800 border-blue-300'}
-                            >
-                              {exame.plano}
-                            </Badge>
-                          </TableCell>
-                          <TableCell className="text-gray-600">{exame.tecnico}</TableCell>
-                          <TableCell className="text-right">
-                            <Button variant="ghost" size="sm" className="text-blue-600 hover:text-blue-800">
-                              <Eye className="h-4 w-4" />
-                            </Button>
-                          </TableCell>
+            <FadeIn delay={0.3}>
+              <AnimatedCard className="shadow-sm">
+                <CardHeader>
+                  <div className="flex justify-between items-center">
+                    <CardTitle className="text-gray-800">Exames Recentes</CardTitle>
+                    <ShimmerButton className="bg-blue-600 hover:bg-blue-700">
+                      <Plus className="mr-2 h-4 w-4" />
+                      Novo Exame
+                    </ShimmerButton>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <motion.div 
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.4 }}
+                    className="rounded-md border border-gray-200"
+                  >
+                    <Table>
+                      <TableHeader>
+                        <TableRow className="bg-gray-50">
+                          <TableHead className="font-semibold text-gray-700">Nome do Paciente</TableHead>
+                          <TableHead className="font-semibold text-gray-700">Exames Realizados</TableHead>
+                          <TableHead className="font-semibold text-center text-gray-700">Incidências</TableHead>
+                          <TableHead className="font-semibold text-center text-gray-700">Número</TableHead>
+                          <TableHead className="font-semibold text-gray-700">Plano de Saúde</TableHead>
+                          <TableHead className="font-semibold text-gray-700">Técnico</TableHead>
+                          <TableHead className="font-semibold text-right text-gray-700">Ações</TableHead>
                         </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </div>
-                <div className="mt-4 flex justify-end">
-                  <Button variant="link" className="text-blue-600 hover:text-blue-800">
-                    Ver todos os exames
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
+                      </TableHeader>
+                      <TableBody>
+                        {filteredExames.slice(0, 5).map((exame, index) => (
+                          <motion.tr 
+                            key={exame.id}
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.3, delay: 0.5 + index * 0.1 }}
+                            className="hover:bg-gray-50 transition-colors duration-200"
+                          >
+                            <TableCell className="font-medium text-gray-800">{exame.nome}</TableCell>
+                            <TableCell className="text-gray-600">{exame.exame}</TableCell>
+                            <TableCell className="text-center text-gray-600">{exame.incidencias}</TableCell>
+                            <TableCell className="text-center text-gray-600">{exame.numero}</TableCell>
+                            <TableCell>
+                              <GlowingBadge 
+                                variant={exame.plano === 'PARTICULAR' ? 'warning' : 'default'}
+                              >
+                                {exame.plano}
+                              </GlowingBadge>
+                            </TableCell>
+                            <TableCell className="text-gray-600">{exame.tecnico}</TableCell>
+                            <TableCell className="text-right">
+                              <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+                                <Button variant="ghost" size="sm" className="text-blue-600 hover:text-blue-800">
+                                  <Eye className="h-4 w-4" />
+                                </Button>
+                              </motion.div>
+                            </TableCell>
+                          </motion.tr>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </motion.div>
+                  <motion.div 
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.5, delay: 1 }}
+                    className="mt-4 flex justify-end"
+                  >
+                    <Button variant="link" className="text-blue-600 hover:text-blue-800">
+                      Ver todos os exames
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Button>
+                  </motion.div>
+                </CardContent>
+              </AnimatedCard>
+            </FadeIn>
           </TabsContent>
 
           {/* Exames */}
           <TabsContent value="exames" className="space-y-6">
-            <div className="flex justify-between items-center mb-6">
-              <h2 className="text-2xl font-bold text-gray-800">Gestão de Exames</h2>
-              <Button className="bg-blue-600 hover:bg-blue-700">
-                <Plus className="mr-2 h-4 w-4" />
-                Novo Exame
-              </Button>
-            </div>
+            <FadeIn delay={0.1}>
+              <div className="flex justify-between items-center mb-6">
+                <h2 className="text-2xl font-bold text-gray-800">Gestão de Exames</h2>
+                <ShimmerButton className="bg-blue-600 hover:bg-blue-700">
+                  <Plus className="mr-2 h-4 w-4" />
+                  Novo Exame
+                </ShimmerButton>
+              </div>
+            </FadeIn>
 
-            <Card className="shadow-sm">
-              <CardHeader>
-                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-                  <div className="relative w-full sm:w-96">
-                    <Input
-                      placeholder="Buscar exames..."
-                      value={searchTerm}
-                      onChange={(e) => setSearchTerm(e.target.value)}
-                      className="pl-10 border-gray-300"
-                    />
-                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+            <FadeIn delay={0.2}>
+              <AnimatedCard className="shadow-sm">
+                <CardHeader>
+                  <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                    <motion.div 
+                      className="relative w-full sm:w-96"
+                      whileFocus={{ scale: 1.02 }}
+                    >
+                      <Input
+                        placeholder="Buscar exames..."
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        className="pl-10 border-gray-300 transition-all duration-300 focus:shadow-lg focus:shadow-blue-500/10"
+                      />
+                      <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                    </motion.div>
+                    <div className="flex gap-2 w-full sm:w-auto">
+                      <Select value={selectedFilter} onValueChange={setSelectedFilter}>
+                        <SelectTrigger className="w-full sm:w-[180px] border-gray-300">
+                          <SelectValue placeholder="Filtrar por" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="todos">Todos os exames</SelectItem>
+                          <SelectItem value="hoje">Realizados hoje</SelectItem>
+                          <SelectItem value="semana">Última semana</SelectItem>
+                          <SelectItem value="mes">Este mês</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <ShimmerButton variant="outline" className="border-gray-300">
+                        <Filter className="mr-2 h-4 w-4" />
+                        Filtros
+                      </ShimmerButton>
+                    </div>
                   </div>
-                  <div className="flex gap-2 w-full sm:w-auto">
-                    <Select value={selectedFilter} onValueChange={setSelectedFilter}>
-                      <SelectTrigger className="w-full sm:w-[180px] border-gray-300">
-                        <SelectValue placeholder="Filtrar por" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="todos">Todos os exames</SelectItem>
-                        <SelectItem value="hoje">Realizados hoje</SelectItem>
-                        <SelectItem value="semana">Última semana</SelectItem>
-                        <SelectItem value="mes">Este mês</SelectItem>
-                      </SelectContent>
-                    </Select>
-                    <Button variant="outline" className="border-gray-300">
-                      <Filter className="mr-2 h-4 w-4" />
-                      Filtros
-                    </Button>
-                  </div>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <div className="rounded-md border border-gray-200">
-                  <Table>
-                    <TableHeader>
-                      <TableRow className="bg-gray-50">
-                        <TableHead className="font-semibold text-gray-700">Nome do Paciente</TableHead>
-                        <TableHead className="font-semibold text-gray-700">Exames Realizados</TableHead>
-                        <TableHead className="font-semibold text-center text-gray-700">Incidências</TableHead>
-                        <TableHead className="font-semibold text-center text-gray-700">Número</TableHead>
-                        <TableHead className="font-semibold text-gray-700">Plano de Saúde</TableHead>
-                        <TableHead className="font-semibold text-gray-700">Técnico</TableHead>
-                        <TableHead className="font-semibold text-right text-gray-700">Ações</TableHead>
-                      </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                      {filteredExames.map((exame) => (
-                        <TableRow key={exame.id} className="hover:bg-gray-50">
-                          <TableCell className="font-medium text-gray-800">{exame.nome}</TableCell>
-                          <TableCell className="text-gray-600">{exame.exame}</TableCell>
-                          <TableCell className="text-center text-gray-600">{exame.incidencias}</TableCell>
-                          <TableCell className="text-center text-gray-600">{exame.numero}</TableCell>
-                          <TableCell>
-                            <Badge 
-                              variant="outline" 
-                              className={exame.plano === 'PARTICULAR' ? 'bg-purple-100 text-purple-800 border-purple-300' : 'bg-blue-100 text-blue-800 border-blue-300'}
-                            >
-                              {exame.plano}
-                            </Badge>
-                          </TableCell>
-                          <TableCell className="text-gray-600">{exame.tecnico}</TableCell>
-                          <TableCell className="text-right">
-                            <div className="flex justify-end gap-2">
-                              <Button variant="ghost" size="sm" className="text-blue-600 hover:text-blue-800">
-                                <Eye className="h-4 w-4" />
-                              </Button>
-                              <Button variant="ghost" size="sm" className="text-blue-600 hover:text-blue-800">
-                                <Edit className="h-4 w-4" />
-                              </Button>
-                              <Button variant="ghost" size="sm" className="text-red-500 hover:text-red-700">
-                                <Trash className="h-4 w-4" />
-                              </Button>
-                            </div>
-                          </TableCell>
+                </CardHeader>
+                <CardContent>
+                  <motion.div 
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.3 }}
+                    className="rounded-md border border-gray-200"
+                  >
+                    <Table>
+                      <TableHeader>
+                        <TableRow className="bg-gray-50">
+                          <TableHead className="font-semibold text-gray-700">Nome do Paciente</TableHead>
+                          <TableHead className="font-semibold text-gray-700">Exames Realizados</TableHead>
+                          <TableHead className="font-semibold text-center text-gray-700">Incidências</TableHead>
+                          <TableHead className="font-semibold text-center text-gray-700">Número</TableHead>
+                          <TableHead className="font-semibold text-gray-700">Plano de Saúde</TableHead>
+                          <TableHead className="font-semibold text-gray-700">Técnico</TableHead>
+                          <TableHead className="font-semibold text-right text-gray-700">Ações</TableHead>
                         </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </div>
-                <Pagination className="mt-4">
-                  <PaginationContent>
-                    <PaginationItem>
-                      <PaginationPrevious href="#" />
-                    </PaginationItem>
-                    <PaginationItem>
-                      <PaginationLink href="#" isActive>1</PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                      <PaginationLink href="#">2</PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                      <PaginationLink href="#">3</PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                      <PaginationNext href="#" />
-                    </PaginationItem>
-                  </PaginationContent>
-                </Pagination>
-              </CardContent>
-            </Card>
+                      </TableHeader>
+                      <TableBody>
+                        {filteredExames.map((exame, index) => (
+                          <motion.tr 
+                            key={exame.id}
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.3, delay: 0.4 + index * 0.05 }}
+                            className="hover:bg-gray-50 transition-colors duration-200"
+                          >
+                            <TableCell className="font-medium text-gray-800">{exame.nome}</TableCell>
+                            <TableCell className="text-gray-600">{exame.exame}</TableCell>
+                            <TableCell className="text-center text-gray-600">{exame.incidencias}</TableCell>
+                            <TableCell className="text-center text-gray-600">{exame.numero}</TableCell>
+                            <TableCell>
+                              <GlowingBadge 
+                                variant={exame.plano === 'PARTICULAR' ? 'warning' : 'default'}
+                              >
+                                {exame.plano}
+                              </GlowingBadge>
+                            </TableCell>
+                            <TableCell className="text-gray-600">{exame.tecnico}</TableCell>
+                            <TableCell className="text-right">
+                              <div className="flex justify-end gap-2">
+                                <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+                                  <Button variant="ghost" size="sm" className="text-blue-600 hover:text-blue-800">
+                                    <Eye className="h-4 w-4" />
+                                  </Button>
+                                </motion.div>
+                                <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+                                  <Button variant="ghost" size="sm" className="text-blue-600 hover:text-blue-800">
+                                    <Edit className="h-4 w-4" />
+                                  </Button>
+                                </motion.div>
+                                <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+                                  <Button variant="ghost" size="sm" className="text-red-500 hover:text-red-700">
+                                    <Trash className="h-4 w-4" />
+                                  </Button>
+                                </motion.div>
+                              </div>
+                            </TableCell>
+                          </motion.tr>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </motion.div>
+                  <Pagination className="mt-4">
+                    <PaginationContent>
+                      <PaginationItem>
+                        <PaginationPrevious href="#" />
+                      </PaginationItem>
+                      <PaginationItem>
+                        <PaginationLink href="#" isActive>1</PaginationLink>
+                      </PaginationItem>
+                      <PaginationItem>
+                        <PaginationLink href="#">2</PaginationLink>
+                      </PaginationItem>
+                      <PaginationItem>
+                        <PaginationLink href="#">3</PaginationLink>
+                      </PaginationItem>
+                      <PaginationItem>
+                        <PaginationNext href="#" />
+                      </PaginationItem>
+                    </PaginationContent>
+                  </Pagination>
+                </CardContent>
+              </AnimatedCard>
+            </FadeIn>
           </TabsContent>
 
           {/* Pacientes */}
           <TabsContent value="pacientes" className="space-y-6">
-            <div className="flex justify-between items-center mb-6">
-              <h2 className="text-2xl font-bold text-gray-800">Gestão de Pacientes</h2>
-              <Button className="bg-blue-600 hover:bg-blue-700">
-                <UserPlus className="mr-2 h-4 w-4" />
-                Novo Paciente
-              </Button>
-            </div>
+            <FadeIn delay={0.1}>
+              <div className="flex justify-between items-center mb-6">
+                <h2 className="text-2xl font-bold text-gray-800">Gestão de Pacientes</h2>
+                <ShimmerButton className="bg-blue-600 hover:bg-blue-700">
+                  <UserPlus className="mr-2 h-4 w-4" />
+                  Novo Paciente
+                </ShimmerButton>
+              </div>
+            </FadeIn>
 
-            <Card className="shadow-sm">
-              <CardHeader>
-                <div className="relative w-full">
-                  <Input
-                    placeholder="Buscar pacientes por nome, CPF ou plano de saúde..."
-                    className="pl-10 border-gray-300"
-                  />
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-                </div>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {examesData.slice(0, 6).map((paciente, index) => (
-                    <Card key={index} className="hover:shadow-md transition-shadow cursor-pointer border border-gray-200">
-                      <CardHeader className="pb-2">
-                        <CardTitle className="text-base text-gray-800">{paciente.nome}</CardTitle>
-                        <CardDescription className="text-gray-500">ID: {100000 + index}</CardDescription>
-                      </CardHeader>
-                      <CardContent>
-                        <div className="space-y-2 text-sm">
-                          <div className="flex justify-between">
-                            <span className="text-gray-500">Último exame:</span>
-                            <span className="text-gray-700">{paciente.exame}</span>
-                          </div>
-                          <div className="flex justify-between">
-                            <span className="text-gray-500">Plano:</span>
-                            <Badge 
-                              variant="outline" 
-                              className={paciente.plano === 'PARTICULAR' ? 'bg-purple-100 text-purple-800 border-purple-300' : 'bg-blue-100 text-blue-800 border-blue-300'}
-                            >
-                              {paciente.plano}
-                            </Badge>
-                          </div>
-                          <div className="flex justify-between">
-                            <span className="text-gray-500">Total de exames:</span>
-                            <span className="text-gray-700">{Math.floor(Math.random() * 10) + 1}</span>
-                          </div>
-                        </div>
-                        <div className="mt-4 flex justify-end">
-                          <Button variant="ghost" size="sm" className="text-blue-600 hover:text-blue-800">
-                            Ver histórico
-                            <ChevronRight className="ml-2 h-4 w-4" />
-                          </Button>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-                <Pagination className="mt-6">
-                  <PaginationContent>
-                    <PaginationItem>
-                      <PaginationPrevious href="#" />
-                    </PaginationItem>
-                    <PaginationItem>
-                      <PaginationLink href="#" isActive>1</PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                      <PaginationLink href="#">2</PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                      <PaginationLink href="#">3</PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                      <PaginationNext href="#" />
-                    </PaginationItem>
-                  </PaginationContent>
-                </Pagination>
-              </CardContent>
-            </Card>
+            <FadeIn delay={0.2}>
+              <AnimatedCard className="shadow-sm">
+                <CardHeader>
+                  <motion.div 
+                    className="relative w-full"
+                    whileFocus={{ scale: 1.02 }}
+                  >
+                    <Input
+                      placeholder="Buscar pacientes por nome, CPF ou plano de saúde..."
+                      className="pl-10 border-gray-300 transition-all duration-300 focus:shadow-lg focus:shadow-blue-500/10"
+                    />
+                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                  </motion.div>
+                </CardHeader>
+                <CardContent>
+                  <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" staggerDelay={0.1}>
+                    {examesData.slice(0, 6).map((paciente, index) => (
+                      <StaggerItem key={index}>
+                        <AnimatedCard 
+                          className="hover:shadow-md transition-shadow cursor-pointer border border-gray-200"
+                          hoverScale={1.03}
+                          delay={index * 0.1}
+                        >
+                          <CardHeader className="pb-2">
+                            <CardTitle className="text-base text-gray-800">{paciente.nome}</CardTitle>
+                            <CardDescription className="text-gray-500">ID: {100000 + index}</CardDescription>
+                          </CardHeader>
+                          <CardContent>
+                            <div className="space-y-2 text-sm">
+                              <div className="flex justify-between">
+                                <span className="text-gray-500">Último exame:</span>
+                                <span className="text-gray-700">{paciente.exame}</span>
+                              </div>
+                              <div className="flex justify-between">
+                                <span className="text-gray-500">Plano:</span>
+                                <GlowingBadge 
+                                  variant={paciente.plano === 'PARTICULAR' ? 'warning' : 'default'}
+                                >
+                                  {paciente.plano}
+                                </GlowingBadge>
+                              </div>
+                              <div className="flex justify-between">
+                                <span className="text-gray-500">Total de exames:</span>
+                                <span className="text-gray-700">{Math.floor(Math.random() * 10) + 1}</span>
+                              </div>
+                            </div>
+                            <div className="mt-4 flex justify-end">
+                              <motion.div whileHover={{ x: 5 }}>
+                                <Button variant="ghost" size="sm" className="text-blue-600 hover:text-blue-800">
+                                  Ver histórico
+                                  <ChevronRight className="ml-2 h-4 w-4" />
+                                </Button>
+                              </motion.div>
+                            </div>
+                          </CardContent>
+                        </AnimatedCard>
+                      </StaggerItem>
+                    ))}
+                  </StaggerContainer>
+                  <Pagination className="mt-6">
+                    <PaginationContent>
+                      <PaginationItem>
+                        <PaginationPrevious href="#" />
+                      </PaginationItem>
+                      <PaginationItem>
+                        <PaginationLink href="#" isActive>1</PaginationLink>
+                      </PaginationItem>
+                      <PaginationItem>
+                        <PaginationLink href="#">2</PaginationLink>
+                      </PaginationItem>
+                      <PaginationItem>
+                        <PaginationLink href="#">3</PaginationLink>
+                      </PaginationItem>
+                      <PaginationItem>
+                        <PaginationNext href="#" />
+                      </PaginationItem>
+                    </PaginationContent>
+                  </Pagination>
+                </CardContent>
+              </AnimatedCard>
+            </FadeIn>
           </TabsContent>
 
           {/* Admin */}
           <TabsContent value="admin" className="space-y-6">
-            <div className="flex justify-between items-center mb-6">
-              <h2 className="text-2xl font-bold text-gray-800">Painel Administrativo</h2>
-              <div className="flex gap-2">
-                <Button variant="outline" className="border-gray-300">
-                  <Download className="mr-2 h-4 w-4" />
-                  Exportar Relatórios
-                </Button>
-                <Button className="bg-blue-600 hover:bg-blue-700">
-                  <UserPlus className="mr-2 h-4 w-4" />
-                  Novo Usuário
-                </Button>
+            <FadeIn delay={0.1}>
+              <div className="flex justify-between items-center mb-6">
+                <h2 className="text-2xl font-bold text-gray-800">Painel Administrativo</h2>
+                <div className="flex gap-2">
+                  <ShimmerButton variant="outline" className="border-gray-300">
+                    <Download className="mr-2 h-4 w-4" />
+                    Exportar Relatórios
+                  </ShimmerButton>
+                  <ShimmerButton className="bg-blue-600 hover:bg-blue-700">
+                    <UserPlus className="mr-2 h-4 w-4" />
+                    Novo Usuário
+                  </ShimmerButton>
+                </div>
               </div>
-            </div>
+            </FadeIn>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-              <Card className="shadow-sm">
-                <CardHeader>
-                  <CardTitle className="text-gray-800">Estatísticas Mensais</CardTitle>
-                </CardHeader>
-                <CardContent className="h-80">
-                  <div id="planoSaudeChart" className="w-full h-full"></div>
-                </CardContent>
-              </Card>
+            <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6" staggerDelay={0.1}>
+              <StaggerItem>
+                <AnimatedCard className="shadow-sm">
+                  <CardHeader>
+                    <CardTitle className="text-gray-800">Estatísticas Mensais</CardTitle>
+                  </CardHeader>
+                  <CardContent className="h-80">
+                    <motion.div 
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.8, delay: 0.5 }}
+                      id="planoSaudeChart" 
+                      className="w-full h-full"
+                    />
+                  </CardContent>
+                </AnimatedCard>
+              </StaggerItem>
               
-              <Card className="shadow-sm">
+              <StaggerItem>
+                <AnimatedCard className="shadow-sm">
+                  <CardHeader>
+                    <CardTitle className="text-gray-800">Desempenho por Técnico</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <Table>
+                      <TableHeader>
+                        <TableRow className="bg-gray-50">
+                          <TableHead className="font-semibold text-gray-700">Técnico</TableHead>
+                          <TableHead className="font-semibold text-center text-gray-700">Exames</TableHead>
+                          <TableHead className="font-semibold text-center text-gray-700">Média Diária</TableHead>
+                          <TableHead className="font-semibold text-right text-gray-700">Eficiência</TableHead>
+                        </TableRow>
+                      </TableHeader>
+                      <TableBody>
+                        {[
+                          { nome: 'JOÃO PEDRO', exames: 78, media: 9.8, eficiencia: '98%', variant: 'success' as const },
+                          { nome: 'FER', exames: 65, media: 8.1, eficiencia: '95%', variant: 'success' as const },
+                          { nome: 'BRUNA', exames: 52, media: 6.5, eficiencia: '87%', variant: 'warning' as const },
+                          { nome: 'RO', exames: 45, media: 5.6, eficiencia: '82%', variant: 'warning' as const }
+                        ].map((tecnico, index) => (
+                          <motion.tr 
+                            key={tecnico.nome}
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.3, delay: 0.6 + index * 0.1 }}
+                            className="hover:bg-gray-50 transition-colors duration-200"
+                          >
+                            <TableCell className="font-medium text-gray-800">{tecnico.nome}</TableCell>
+                            <TableCell className="text-center text-gray-600">{tecnico.exames}</TableCell>
+                            <TableCell className="text-center text-gray-600">{tecnico.media}</TableCell>
+                            <TableCell className="text-right">
+                              <GlowingBadge variant={tecnico.variant}>
+                                {tecnico.eficiencia}
+                              </GlowingBadge>
+                            </TableCell>
+                          </motion.tr>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </CardContent>
+                </AnimatedCard>
+              </StaggerItem>
+            </StaggerContainer>
+
+            <FadeIn delay={0.3}>
+              <AnimatedCard className="shadow-sm">
                 <CardHeader>
-                  <CardTitle className="text-gray-800">Desempenho por Técnico</CardTitle>
+                  <CardTitle className="text-gray-800">Gerenciamento de Usuários</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <Table>
-                    <TableHeader>
-                      <TableRow className="bg-gray-50">
-                        <TableHead className="font-semibold text-gray-700">Técnico</TableHead>
-                        <TableHead className="font-semibold text-center text-gray-700">Exames</TableHead>
-                        <TableHead className="font-semibold text-center text-gray-700">Média Diária</TableHead>
-                        <TableHead className="font-semibold text-right text-gray-700">Eficiência</TableHead>
-                      </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                      <TableRow className="hover:bg-gray-50">
-                        <TableCell className="font-medium text-gray-800">JOÃO PEDRO</TableCell>
-                        <TableCell className="text-center text-gray-600">78</TableCell>
-                        <TableCell className="text-center text-gray-600">9.8</TableCell>
-                        <TableCell className="text-right">
-                          <Badge className="bg-green-100 text-green-800">98%</Badge>
-                        </TableCell>
-                      </TableRow>
-                      <TableRow className="hover:bg-gray-50">
-                        <TableCell className="font-medium text-gray-800">FER</TableCell>
-                        <TableCell className="text-center text-gray-600">65</TableCell>
-                        <TableCell className="text-center text-gray-600">8.1</TableCell>
-                        <TableCell className="text-right">
-                          <Badge className="bg-green-100 text-green-800">95%</Badge>
-                        </TableCell>
-                      </TableRow>
-                      <TableRow className="hover:bg-gray-50">
-                        <TableCell className="font-medium text-gray-800">BRUNA</TableCell>
-                        <TableCell className="text-center text-gray-600">52</TableCell>
-                        <TableCell className="text-center text-gray-600">6.5</TableCell>
-                        <TableCell className="text-right">
-                          <Badge className="bg-amber-100 text-amber-800">87%</Badge>
-                        </TableCell>
-                      </TableRow>
-                      <TableRow className="hover:bg-gray-50">
-                        <TableCell className="font-medium text-gray-800">RO</TableCell>
-                        <TableCell className="text-center text-gray-600">45</TableCell>
-                        <TableCell className="text-center text-gray-600">5.6</TableCell>
-                        <TableCell className="text-right">
-                          <Badge className="bg-amber-100 text-amber-800">82%</Badge>
-                        </TableCell>
-                      </TableRow>
-                    </TableBody>
-                  </Table>
+                  <motion.div 
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.4 }}
+                    className="rounded-md border border-gray-200"
+                  >
+                    <Table>
+                      <TableHeader>
+                        <TableRow className="bg-gray-50">
+                          <TableHead className="font-semibold text-gray-700">Nome</TableHead>
+                          <TableHead className="font-semibold text-gray-700">Email</TableHead>
+                          <TableHead className="font-semibold text-gray-700">Função</TableHead>
+                          <TableHead className="font-semibold text-gray-700">Status</TableHead>
+                          <TableHead className="font-semibold text-gray-700">Último Acesso</TableHead>
+                          <TableHead className="font-semibold text-right text-gray-700">Ações</TableHead>
+                        </TableRow>
+                      </TableHeader>
+                      <TableBody>
+                        {[
+                          { nome: 'João Pedro', email: 'joao.pedro@clinica.com', funcao: 'Administrador', status: 'Ativo', acesso: '08/06/2025 14:11', variant: 'success' as const },
+                          { nome: 'Fernanda Silva', email: 'fernanda.silva@clinica.com', funcao: 'Técnico', status: 'Ativo', acesso: '08/06/2025 13:45', variant: 'success' as const },
+                          { nome: 'Bruna Oliveira', email: 'bruna.oliveira@clinica.com', funcao: 'Técnico', status: 'Ativo', acesso: '08/06/2025 10:22', variant: 'success' as const },
+                          { nome: 'Roberto Almeida', email: 'roberto.almeida@clinica.com', funcao: 'Técnico', status: 'Inativo', acesso: '05/06/2025 16:30', variant: 'default' as const }
+                        ].map((usuario, index) => (
+                          <motion.tr 
+                            key={usuario.nome}
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.3, delay: 0.5 + index * 0.1 }}
+                            className="hover:bg-gray-50 transition-colors duration-200"
+                          >
+                            <TableCell className="font-medium text-gray-800">{usuario.nome}</TableCell>
+                            <TableCell className="text-gray-600">{usuario.email}</TableCell>
+                            <TableCell className="text-gray-600">{usuario.funcao}</TableCell>
+                            <TableCell>
+                              <GlowingBadge variant={usuario.variant}>
+                                {usuario.status}
+                              </GlowingBadge>
+                            </TableCell>
+                            <TableCell className="text-gray-600">{usuario.acesso}</TableCell>
+                            <TableCell className="text-right">
+                              <div className="flex justify-end gap-2">
+                                <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+                                  <Button variant="ghost" size="sm" className="text-blue-600 hover:text-blue-800">
+                                    <Edit className="h-4 w-4" />
+                                  </Button>
+                                </motion.div>
+                                <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+                                  <Button variant="ghost" size="sm" className={usuario.status === 'Ativo' ? 'text-red-500 hover:text-red-700' : 'text-green-600 hover:text-green-800'}>
+                                    {usuario.status === 'Ativo' ? <Trash className="h-4 w-4" /> : <UserPlus className="h-4 w-4" />}
+                                  </Button>
+                                </motion.div>
+                              </div>
+                            </TableCell>
+                          </motion.tr>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </motion.div>
                 </CardContent>
-              </Card>
-            </div>
-
-            <Card className="shadow-sm">
-              <CardHeader>
-                <CardTitle className="text-gray-800">Gerenciamento de Usuários</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="rounded-md border border-gray-200">
-                  <Table>
-                    <TableHeader>
-                      <TableRow className="bg-gray-50">
-                        <TableHead className="font-semibold text-gray-700">Nome</TableHead>
-                        <TableHead className="font-semibold text-gray-700">Email</TableHead>
-                        <TableHead className="font-semibold text-gray-700">Função</TableHead>
-                        <TableHead className="font-semibold text-gray-700">Status</TableHead>
-                        <TableHead className="font-semibold text-gray-700">Último Acesso</TableHead>
-                        <TableHead className="font-semibold text-right text-gray-700">Ações</TableHead>
-                      </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                      <TableRow className="hover:bg-gray-50">
-                        <TableCell className="font-medium text-gray-800">João Pedro</TableCell>
-                        <TableCell className="text-gray-600">joao.pedro@clinica.com</TableCell>
-                        <TableCell className="text-gray-600">Administrador</TableCell>
-                        <TableCell>
-                          <Badge className="bg-green-100 text-green-800">Ativo</Badge>
-                        </TableCell>
-                        <TableCell className="text-gray-600">08/06/2025 14:11</TableCell>
-                        <TableCell className="text-right">
-                          <div className="flex justify-end gap-2">
-                            <Button variant="ghost" size="sm" className="text-blue-600 hover:text-blue-800">
-                              <Edit className="h-4 w-4" />
-                            </Button>
-                            <Button variant="ghost" size="sm" className="text-red-500 hover:text-red-700">
-                              <Trash className="h-4 w-4" />
-                            </Button>
-                          </div>
-                        </TableCell>
-                      </TableRow>
-                      <TableRow className="hover:bg-gray-50">
-                        <TableCell className="font-medium text-gray-800">Fernanda Silva</TableCell>
-                        <TableCell className="text-gray-600">fernanda.silva@clinica.com</TableCell>
-                        <TableCell className="text-gray-600">Técnico</TableCell>
-                        <TableCell>
-                          <Badge className="bg-green-100 text-green-800">Ativo</Badge>
-                        </TableCell>
-                        <TableCell className="text-gray-600">08/06/2025 13:45</TableCell>
-                        <TableCell className="text-right">
-                          <div className="flex justify-end gap-2">
-                            <Button variant="ghost" size="sm" className="text-blue-600 hover:text-blue-800">
-                              <Edit className="h-4 w-4" />
-                            </Button>
-                            <Button variant="ghost" size="sm" className="text-red-500 hover:text-red-700">
-                              <Trash className="h-4 w-4" />
-                            </Button>
-                          </div>
-                        </TableCell>
-                      </TableRow>
-                      <TableRow className="hover:bg-gray-50">
-                        <TableCell className="font-medium text-gray-800">Bruna Oliveira</TableCell>
-                        <TableCell className="text-gray-600">bruna.oliveira@clinica.com</TableCell>
-                        <TableCell className="text-gray-600">Técnico</TableCell>
-                        <TableCell>
-                          <Badge className="bg-green-100 text-green-800">Ativo</Badge>
-                        </TableCell>
-                        <TableCell className="text-gray-600">08/06/2025 10:22</TableCell>
-                        <TableCell className="text-right">
-                          <div className="flex justify-end gap-2">
-                            <Button variant="ghost" size="sm" className="text-blue-600 hover:text-blue-800">
-                              <Edit className="h-4 w-4" />
-                            </Button>
-                            <Button variant="ghost" size="sm" className="text-red-500 hover:text-red-700">
-                              <Trash className="h-4 w-4" />
-                            </Button>
-                          </div>
-                        </TableCell>
-                      </TableRow>
-                      <TableRow className="hover:bg-gray-50">
-                        <TableCell className="font-medium text-gray-800">Roberto Almeida</TableCell>
-                        <TableCell className="text-gray-600">roberto.almeida@clinica.com</TableCell>
-                        <TableCell className="text-gray-600">Técnico</TableCell>
-                        <TableCell>
-                          <Badge variant="outline" className="bg-gray-100 text-gray-600 border-gray-300">Inativo</Badge>
-                        </TableCell>
-                        <TableCell className="text-gray-600">05/06/2025 16:30</TableCell>
-                        <TableCell className="text-right">
-                          <div className="flex justify-end gap-2">
-                            <Button variant="ghost" size="sm" className="text-blue-600 hover:text-blue-800">
-                              <Edit className="h-4 w-4" />
-                            </Button>
-                            <Button variant="ghost" size="sm" className="text-green-600 hover:text-green-800">
-                              <UserPlus className="h-4 w-4" />
-                            </Button>
-                          </div>
-                        </TableCell>
-                      </TableRow>
-                    </TableBody>
-                  </Table>
-                </div>
-              </CardContent>
-            </Card>
+              </AnimatedCard>
+            </FadeIn>
           </TabsContent>
         </Tabs>
       </main>
 
       {/* Rodapé */}
-      <footer className="bg-gray-100 border-t border-gray-200 mt-8">
+      <motion.footer 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.8 }}
+        className="bg-gray-100/80 backdrop-blur-sm border-t border-gray-200 mt-8"
+      >
         <div className="container mx-auto px-4 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="mb-4 md:mb-0">
               <p className="text-sm text-gray-600">© 2025 Sistema de Gestão de Exames Radiológicos. Todos os direitos reservados.</p>
             </div>
             <div className="flex space-x-4">
-              <Button variant="ghost" size="sm" className="text-gray-600 hover:text-gray-800">
-                Suporte
-              </Button>
-              <Button variant="ghost" size="sm" className="text-gray-600 hover:text-gray-800">
-                Manual
-              </Button>
-              <Button variant="ghost" size="sm" className="text-gray-600 hover:text-gray-800">
-                Privacidade
-              </Button>
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                <Button variant="ghost" size="sm" className="text-gray-600 hover:text-gray-800">
+                  Suporte
+                </Button>
+              </motion.div>
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                <Button variant="ghost" size="sm" className="text-gray-600 hover:text-gray-800">
+                  Manual
+                </Button>
+              </motion.div>
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                <Button variant="ghost" size="sm" className="text-gray-600 hover:text-gray-800">
+                  Privacidade
+                </Button>
+              </motion.div>
             </div>
           </div>
         </div>
-      </footer>
-    </div>
+      </motion.footer>
+    </motion.div>
   );
 }
 
