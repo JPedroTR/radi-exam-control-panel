@@ -1,17 +1,14 @@
-
 import React, { useState, useEffect } from 'react';
+import { Navigation } from '@/components/layout/Navigation';
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import * as echarts from 'echarts';
-import { User, Stethoscope, Pill, UserCheck, Search, Settings, Bell, LogOut } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { User, Stethoscope, FileText, Clock } from 'lucide-react';
 
-// Import our new components
+// Import our components
 import { MetricCard } from '@/components/dashboard/MetricCard';
-import { DoctorCard } from '@/components/dashboard/DoctorCard';
+import { TechnicianCard } from '@/components/dashboard/TechnicianCard';
 import { ChartContainer } from '@/components/dashboard/ChartContainer';
 import { TimeSelector } from '@/components/dashboard/TimeSelector';
 import { FadeIn } from '@/components/animations/FadeIn';
@@ -19,31 +16,32 @@ import { StaggerContainer, StaggerItem } from '@/components/animations/StaggerCo
 
 const Index: React.FC = () => {
   const [selectedYear, setSelectedYear] = useState('2025');
-  const [selectedDoctor, setSelectedDoctor] = useState('all');
   
-  // Medical dashboard data
+  // Updated metrics for radiology context
   const metrics = [
-    { title: 'Atendimentos', value: 818, description: 'Total este mês', icon: User, gradient: 'bg-gradient-to-br from-purple-500 to-purple-600' },
-    { title: 'Total Consultas', value: 488, description: 'Realizadas', icon: Stethoscope, gradient: 'bg-gradient-to-br from-blue-500 to-blue-600' },
-    { title: 'Total Exames', value: 231, description: 'Concluídos', icon: Pill, gradient: 'bg-gradient-to-br from-indigo-500 to-indigo-600' },
-    { title: 'Total Retorno', value: 99, description: 'Agendados', icon: UserCheck, gradient: 'bg-gradient-to-br from-cyan-500 to-cyan-600' }
+    { title: 'Exames Realizados', value: 342, description: 'Total este mês', icon: Stethoscope, gradient: 'bg-gradient-to-br from-purple-500 to-purple-600' },
+    { title: 'Laudos Pendentes', value: 28, description: 'Aguardando radiologista', icon: FileText, gradient: 'bg-gradient-to-br from-blue-500 to-blue-600' },
+    { title: 'Pacientes Atendidos', value: 267, description: 'Únicos este mês', icon: User, gradient: 'bg-gradient-to-br from-indigo-500 to-indigo-600' },
+    { title: 'Tempo Médio Laudo', value: 24, description: 'Horas', icon: Clock, gradient: 'bg-gradient-to-br from-cyan-500 to-cyan-600' }
   ];
 
-  const doctors = [
-    { name: 'Dr. João Pedro', specialty: 'Radiologia', consultations: 45, isActive: true },
-    { name: 'Dra. Fernanda Silva', specialty: 'Clínica Geral', consultations: 38, isActive: true },
-    { name: 'Dr. Roberto Almeida', specialty: 'Ortopedia', consultations: 32, isActive: false },
-    { name: 'Dra. Bruna Oliveira', specialty: 'Cardiologia', consultations: 28, isActive: true },
-    { name: 'Dr. Carlos Santos', specialty: 'Neurologia', consultations: 25, isActive: false },
-    { name: 'Dra. Maria Costa', specialty: 'Pediatria', consultations: 22, isActive: true }
+  // Updated to radiology technicians
+  const technicians = [
+    { name: 'Ana Costa Silva', shift: 'Manhã (6h-14h)', examsToday: 12, isActive: true },
+    { name: 'Carlos Mendes', shift: 'Tarde (14h-22h)', examsToday: 9, isActive: true },
+    { name: 'Fernanda Santos', shift: 'Manhã (6h-14h)', examsToday: 8, isActive: false },
+    { name: 'Bruno Silva Lima', shift: 'Noite (22h-6h)', examsToday: 5, isActive: true },
+    { name: 'Juliana Rocha', shift: 'Tarde (14h-22h)', examsToday: 7, isActive: false },
+    { name: 'Ricardo Oliveira', shift: 'Manhã (6h-14h)', examsToday: 10, isActive: true }
   ];
 
+  // Updated exam data with radiology context
   const examesData = [
-    { id: 1, data: '08/06/2025', nome: 'LAIZA SOARES ARAUJO', exame: 'TÓRAX PA/P', status: 'Concluído', medico: 'Dr. João Pedro', tipo: 'Particular' },
-    { id: 2, data: '08/06/2025', nome: 'ANTONI RICHARD DOS SANTOS', exame: 'TORNOZELO', status: 'Em andamento', medico: 'Dra. Fernanda Silva', tipo: 'Convênio' },
-    { id: 3, data: '08/06/2025', nome: 'FABRICIO ESPIRITO SANTO', exame: 'CRÂNIO', status: 'Agendado', medico: 'Dr. Roberto Almeida', tipo: 'SUS' },
-    { id: 4, data: '08/06/2025', nome: 'KARLA SOARES CARDOZO', exame: 'TÓRAX', status: 'Concluído', medico: 'Dra. Bruna Oliveira', tipo: 'Particular' },
-    { id: 5, data: '08/06/2025', nome: 'ROGERIO DA CUNHA ALMADA', exame: 'JOELHO ESQ', status: 'Concluído', medico: 'Dr. João Pedro', tipo: 'Convênio' }
+    { id: 1, data: '08/07/2025', nome: 'MARIA SANTOS SILVA', exame: 'TÓRAX PA/P', status: 'Laudado', tecnico: 'Ana Costa', solicitante: 'Dr. João Silva', tipo: 'Particular' },
+    { id: 2, data: '08/07/2025', nome: 'JOSÉ OLIVEIRA LIMA', exame: 'CRÂNIO AP/P', status: 'Em Execução', tecnico: 'Carlos Mendes', solicitante: 'Dra. Maria Costa', tipo: 'Convênio' },
+    { id: 3, data: '08/07/2025', nome: 'ANA PAULA COSTA', exame: 'JOELHO DIREITO', status: 'Agendado', tecnico: 'Fernanda Santos', solicitante: 'Dr. Pedro Alves', tipo: 'SUS' },
+    { id: 4, data: '08/07/2025', nome: 'PEDRO SANTOS ALVES', exame: 'COLUNA LOMBAR', status: 'Aguardando Laudo', tecnico: 'Bruno Silva', solicitante: 'Dra. Ana Rocha', tipo: 'Particular' },
+    { id: 5, data: '08/07/2025', nome: 'CARLA SOARES LIMA', exame: 'PUNHO ESQUERDO', status: 'Laudado', tecnico: 'Ana Costa', solicitante: 'Dr. Carlos Lima', tipo: 'Convênio' }
   ];
 
   // Initialize charts
@@ -152,43 +150,17 @@ const Index: React.FC = () => {
 
   const getStatusBadge = (status: string) => {
     const variants = {
-      'Concluído': 'bg-green-500',
-      'Em andamento': 'bg-yellow-500',
-      'Agendado': 'bg-blue-500'
+      'Laudado': 'bg-green-500',
+      'Em Execução': 'bg-blue-500',
+      'Agendado': 'bg-yellow-500',
+      'Aguardando Laudo': 'bg-orange-500'
     };
     return variants[status as keyof typeof variants] || 'bg-gray-500';
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900">
-      {/* Header */}
-      <motion.header 
-        initial={{ y: -50, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        className="bg-black/20 backdrop-blur-md border-b border-white/10 sticky top-0 z-50"
-      >
-        <div className="container mx-auto px-6 py-4">
-          <div className="flex justify-between items-center">
-            <div>
-              <h1 className="text-2xl font-bold text-white">DASHBOARD - ATENDIMENTO MÉDICO</h1>
-              <p className="text-white/70 text-sm">Sistema de Gestão Hospitalar</p>
-            </div>
-            <div className="flex items-center gap-4">
-              <span className="text-white/80 text-sm">joao.pedro@clinica.com</span>
-              <Button variant="ghost" size="sm" className="text-white hover:bg-white/10">
-                <Bell className="h-4 w-4 mr-2" />
-                3
-              </Button>
-              <Button variant="ghost" size="sm" className="text-white hover:bg-white/10">
-                <Settings className="h-4 w-4" />
-              </Button>
-              <Button variant="ghost" size="sm" className="text-white hover:bg-white/10">
-                <LogOut className="h-4 w-4" />
-              </Button>
-            </div>
-          </div>
-        </div>
-      </motion.header>
+      <Navigation />
 
       <div className="container mx-auto px-6 py-6">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
@@ -212,15 +184,15 @@ const Index: React.FC = () => {
 
             {/* Charts Grid */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <ChartContainer title="Atendimentos ao Longo do Tempo" delay={0.2}>
+              <ChartContainer title="Exames Realizados por Mês" delay={0.2}>
                 <div id="attendanceChart" className="w-full h-64" />
               </ChartContainer>
 
-              <ChartContainer title="Receita por Tipo" delay={0.3}>
+              <ChartContainer title="Distribuição por Tipo de Pagamento" delay={0.3}>
                 <div id="revenueChart" className="w-full h-64" />
               </ChartContainer>
 
-              <ChartContainer title="Atendimentos por Médico" delay={0.4} className="lg:col-span-2">
+              <ChartContainer title="Produtividade por Técnico" delay={0.4} className="lg:col-span-2">
                 <div id="doctorChart" className="w-full h-80" />
               </ChartContainer>
             </div>
@@ -233,7 +205,8 @@ const Index: React.FC = () => {
                     <TableRow className="border-white/20">
                       <TableHead className="text-white/80">Paciente</TableHead>
                       <TableHead className="text-white/80">Exame</TableHead>
-                      <TableHead className="text-white/80">Médico</TableHead>
+                      <TableHead className="text-white/80">Técnico</TableHead>
+                      <TableHead className="text-white/80">Médico Solicitante</TableHead>
                       <TableHead className="text-white/80">Status</TableHead>
                       <TableHead className="text-white/80">Tipo</TableHead>
                     </TableRow>
@@ -243,7 +216,8 @@ const Index: React.FC = () => {
                       <TableRow key={exame.id} className="border-white/10 hover:bg-white/5">
                         <TableCell className="text-white font-medium">{exame.nome}</TableCell>
                         <TableCell className="text-white/80">{exame.exame}</TableCell>
-                        <TableCell className="text-white/80">{exame.medico}</TableCell>
+                        <TableCell className="text-white/80">{exame.tecnico}</TableCell>
+                        <TableCell className="text-white/80">{exame.solicitante}</TableCell>
                         <TableCell>
                           <Badge className={`${getStatusBadge(exame.status)} text-white border-0`}>
                             {exame.status}
@@ -258,12 +232,12 @@ const Index: React.FC = () => {
             </ChartContainer>
           </div>
 
-          {/* Sidebar - Doctors Panel */}
+          {/* Sidebar - Technicians Panel */}
           <div className="lg:col-span-1 space-y-6">
             <FadeIn delay={0.6}>
               <div className="bg-white/10 backdrop-blur-md rounded-lg p-6 border border-white/20">
                 <div className="flex justify-between items-center mb-6">
-                  <h3 className="text-white font-semibold text-lg">Equipe Médica</h3>
+                  <h3 className="text-white font-semibold text-lg">Técnicos em Radiologia</h3>
                   <TimeSelector 
                     selectedYear={selectedYear} 
                     onYearChange={setSelectedYear} 
@@ -271,13 +245,13 @@ const Index: React.FC = () => {
                 </div>
 
                 <div className="space-y-3">
-                  {doctors.map((doctor, index) => (
-                    <DoctorCard
-                      key={doctor.name}
-                      name={doctor.name}
-                      specialty={doctor.specialty}
-                      consultations={doctor.consultations}
-                      isActive={doctor.isActive}
+                  {technicians.map((technician, index) => (
+                    <TechnicianCard
+                      key={technician.name}
+                      name={technician.name}
+                      shift={technician.shift}
+                      examsToday={technician.examsToday}
+                      isActive={technician.isActive}
                       delay={0.7 + index * 0.1}
                     />
                   ))}
@@ -287,16 +261,16 @@ const Index: React.FC = () => {
                   <h4 className="text-white/80 font-medium mb-3">Resumo do Dia</h4>
                   <div className="space-y-2 text-sm">
                     <div className="flex justify-between text-white/70">
-                      <span>Consultas Hoje:</span>
-                      <span className="text-white font-medium">28</span>
+                      <span>Exames Realizados:</span>
+                      <span className="text-white font-medium">51</span>
                     </div>
                     <div className="flex justify-between text-white/70">
-                      <span>Exames Pendentes:</span>
-                      <span className="text-yellow-400 font-medium">5</span>
+                      <span>Laudos Pendentes:</span>
+                      <span className="text-yellow-400 font-medium">28</span>
                     </div>
                     <div className="flex justify-between text-white/70">
-                      <span>Emergências:</span>
-                      <span className="text-red-400 font-medium">2</span>
+                      <span>Exames Urgentes:</span>
+                      <span className="text-red-400 font-medium">3</span>
                     </div>
                   </div>
                 </div>
